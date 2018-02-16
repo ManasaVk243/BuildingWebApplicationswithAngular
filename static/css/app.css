@@ -1,0 +1,144 @@
+/* app css stylesheet */
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500');
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+h3{
+    font-weight: 400;
+}
+
+/* Text utility classes */
+.text-light{
+    font-weight: 300;
+}
+.text-normal{
+    font-weight: 400;
+}
+.text-medium{
+    font-weight: 500;
+}
+.text-danger{
+    color: red;
+}
+
+/* Margin and padding utility classes */
+.m-n{
+    margin: 0;
+}
+.m-sm{
+    margin: 10px;
+}
+.m-md{
+    margin: 20px;
+}
+.m-r-md{
+    margin-right: 20px;
+}
+.m-l-md{
+    margin-left: 20px;
+}
+.m-t-xs{
+    margin-top: 5px;
+}
+.m-t-sm{
+    margin-top: 10px;
+}
+.m-t-md{
+    margin-top: 20px;
+}
+.m-t-lg{
+    margin-top: 40px;
+}
+.m-b-n{
+    margin-bottom: 0;
+}
+.m-b-md{
+    margin-bottom: 20px;
+}
+.m-b-lg{
+    margin-bottom: 40px;
+}
+
+/* Borders for the right and left side panes */
+.side-pane-left, .side-pane-right{
+    height: calc(100vh - 90px);
+}
+.side-pane-right{
+    border-right: 1px solid lightgray;
+}
+.side-pane-left{
+    border-left: 1px solid lightgray;
+}
+
+/* Styles for the products in the right side pane and auction tiles*/
+.next-product, .auction-tile{
+    margin-bottom: 20px;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 20px;
+}
+.auction img{
+    height: 300px;
+}
+.auction-tile{
+    cursor: pointer;
+}
+
+/* Styles for the admin module */
+.sub-nav{
+    padding: 15px 0;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+.btn-wrapper{
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    margin: 5px 0;
+    padding: 15px 0;
+}
+.btn-wrapper .btn{
+    width: 100%;
+}
+.auction-container img{
+    max-height: 170px;
+    padding: 10px;
+}
+.clickable{
+    cursor: pointer;
+}
+
+/* styles for validation helpers - start*/
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.validation-message{
+    width:280px
+}
+
+.extended-validation-message{
+    width:320px
+}
+/* styles for validation helpers - end */

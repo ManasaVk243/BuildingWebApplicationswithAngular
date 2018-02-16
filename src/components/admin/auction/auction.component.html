@@ -1,0 +1,70 @@
+<div class="container-fluid auction-container">
+    <div id="content-container" class="row">
+        <div *ngIf="auction">
+            <h2>{{auction.title||'Auction Title'}} </h2>
+            <br>
+            <form #f="ngForm" name="formAuction" (ngSubmit)="save(f.form)" class="row m-b-lg" novalidate>
+                <div id="auction-data" class="col-sm-6 ">
+                    <div class="form-group row">
+                        <label for="auction-name">Name:</label>
+                        <input type="text" name="name" class="form-control" id="auction-name" placeholder="What would be the name of this auction (no space)?" [(ngModel)]="auction.name" [disabled]="isExistingAuction" #name="ngModel" required maa-RemoteValidator maa-busyIndicator>
+                        <div *ngIf="name.touched || submitted">
+                            <label *ngIf="name.control.hasError('required')" class="alert alert-danger validation-message">Name is required</label>
+                            <label *ngIf="name.control.hasError('auctionName')" class="alert alert-danger validation-message">An auction with this name already exists.</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="auction-title">Title:</label>
+                        <input type="text" name="title" class="form-control" id="auction-title" placeholder="What would be the auction title?" [(ngModel)]="auction.title" #title="ngModel" required>
+                        <div *ngIf="title.touched || submitted">
+                            <label *ngIf="title.control.hasError('required')" class="alert alert-danger validation-message">Title is required</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label>Total Product Auctions:</label>
+                        <p class="label label-primary label-as-badge">{{auction.productAuctions?.length}}</p>
+                    </div>
+                    <div class="form-group row">
+                        <label>Total Duration:</label>
+                        <div>
+                            <input type="hidden" name="productAuctionCount" #productAuctionCount="ngModel" class="form-control" [(ngModel)]="auction.productAuctions.length" pattern="[1-9][0-9]*">
+                            <label *ngIf="productAuctionCount.control.hasError('pattern') && (removeTouched || submitted)" class="alert alert-danger extended-validation-message">The auction should have at one least product auction!</label>
+                        </div>
+                        
+                        <p class="label label-primary label-as-badge" *ngIf="auction.productAuctions?.length>0">{{auction.totalAuctionDuration()|secondsToTime}}</p>
+                        <p class="label label-primary label-as-badge" *ngIf="auction.productAuctions?.length==0"></p>
+                    </div>
+                    <div class="row">
+                        <ajax-button [execute]="save" [parameter]="f">
+                            <span class="glyphicon glyphicon-refresh spin" data-animator></span>
+                            <span data-content id="saveButton">Save</span>
+                        </ajax-button>
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="row">
+                <div *ngFor="let productAuction of auction.productAuctions; let i=index" class="col-sm-4">
+                    <div class="next-product">
+                        <div class="title">
+                            {{productAuction.product.title}}
+                            <div class="pull-right" (click)="removeProductAuction(productAuction)"><span class="glyphicon glyphicon-trash"></span></div>
+                        </div>
+                        <div class="main">
+                            <div class="image">
+                                <img class="img-responsive" [src]="'/static/images/' + productAuction.product.image" />
+                            </div>
+                        </div>
+                        <div class="order">
+                            <button type="button" class="btn btn-info" (click)="moveProductAuctionTo(productAuction,0)"><span class="glyphicon glyphicon-upload"></span></button>
+                            <button type="button" class="btn btn-info" (click)="moveProductAuctionTo(productAuction,i-1)"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                            <button type="button" class="btn btn-info" (click)="moveProductAuctionTo(productAuction,i+1)"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                            <button type="button" class="btn btn-info" (click)="moveProductAuctionTo(productAuction,auction.productAuctions.length-1)"><span class="glyphicon glyphicon-download"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
